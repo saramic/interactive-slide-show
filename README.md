@@ -26,6 +26,15 @@ sockets.
 Yes I know there are plenty of these tools, even lists of 10 best of tools, but
 for the moment I am playing "not invented here".
 
+## Build
+
+currently spiking using create-react-app
+
+```sh
+yarn start
+yarn test
+```
+
 ## TODO
 
 some initial spikes
