@@ -40,8 +40,11 @@ yarn test
 some initial spikes
 
 - [ ] Proof of concpet of using apollo and subscriptions over web socket
-- [ ] visual design asspect of the choice module both for participant and
-  presenter
+- [ ] **in progress** visual design asspect of the choice module both for
+  participant and presenter
+  - [ ] setup a CSS framework like Tailwind CSS
+    - https://itnext.io/how-to-use-tailwind-css-with-react-16e9d478b8b1
+    - https://medium.com/@mikeeeeeeey/create-react-app-tailwind-css-feat-postcss-631d9e33ba8c
 - [ ] plugin ability to control [MDX deck](https://github.com/jxnblk/mdx-deck)
   a proposed first slide show support tool
 - [ ] build MVP
