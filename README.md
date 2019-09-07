@@ -40,11 +40,16 @@ yarn test
 some initial spikes
 
 - [ ] Proof of concpet of using apollo and subscriptions over web socket
+  - [ ] **in progress** follow getting started -
+    https://www.apollographql.com/docs/tutorial/introduction/
+  - [ ] demo Apollo GraphQL subscriptions
 - [ ] **in progress** visual design asspect of the choice module both for
-  participant and presenter
-  - [ ] setup a CSS framework like Tailwind CSS
+  participant ~~and presenter~~
+  - [x] setup a CSS framework like Tailwind CSS
     - https://itnext.io/how-to-use-tailwind-css-with-react-16e9d478b8b1
     - https://medium.com/@mikeeeeeeey/create-react-app-tailwind-css-feat-postcss-631d9e33ba8c
+  - [ ] animate the progress bar - probably React start and stop? and CSS for
+    smothness
 - [ ] plugin ability to control [MDX deck](https://github.com/jxnblk/mdx-deck)
   a proposed first slide show support tool
 - [ ] build MVP
