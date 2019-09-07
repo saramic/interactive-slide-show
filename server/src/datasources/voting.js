@@ -34,6 +34,15 @@ class VotingAPI extends DataSource {
     });
     return users && users[0] ? users[0] : null;
   }
+
+  async getVotes() {
+    const found = await this.store.votes.findAll();
+    return found && found.length ? found : [];
+  }
+
+  async castVote({ option }) {
+    return this.store.votes.create({ option });
+  }
 }
 
 module.exports = VotingAPI;

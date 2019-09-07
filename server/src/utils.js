@@ -53,5 +53,16 @@ module.exports.createStore = () => {
     token: SQL.STRING
   });
 
-  return { users };
+  const votes = db.define("vote", {
+    id: {
+      type: SQL.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    createdAt: SQL.DATE,
+    updatedAt: SQL.DATE,
+    option: SQL.STRING
+  });
+
+  return { users, votes };
 };

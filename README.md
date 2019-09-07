@@ -51,7 +51,9 @@ some initial spikes
 - [ ] Proof of concpet of using apollo and subscriptions over web socket
   - [ ] **in progress** follow getting started -
     https://www.apollographql.com/docs/tutorial/introduction/
-  - [ ] demo Apollo GraphQL subscriptions
+    - [x] get basic voting data source up
+    - [ ] connect client to voting data source
+    - [ ] demo Apollo GraphQL subscriptions
 - [ ] **in progress** visual design asspect of the choice module both for
   participant ~~and presenter~~
   - [x] setup a CSS framework like Tailwind CSS
