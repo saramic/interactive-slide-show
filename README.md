@@ -31,6 +31,7 @@ for the moment I am playing "not invented here".
 currently spiking using create-react-app
 
 ```sh
+cd client
 yarn start
 yarn test
 ```
