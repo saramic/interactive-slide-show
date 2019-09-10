@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { ApolloClient } from "apollo-client";
-import { ApolloProvider, useQuery } from "@apollo/react-hooks";
+import {
+  ApolloProvider,
+  useQuery,
+  useMutation
+} from "@apollo/react-hooks";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import gql from "graphql-tag";
@@ -23,6 +27,13 @@ const GET_VOTES = gql`
     }
   }
 `;
+
+const VOTE = gql`
+  mutation castVote($option: String!) {
+    castVote(option: $option)
+  }
+`;
+
 client
   .query({
     query: GET_VOTES
@@ -73,19 +84,25 @@ const Progress = ({ timeLeft }) => (
   </div>
 );
 
-const Choice = ({ updateCount, index }) => (
-  <div
-    className='flex-1 text-center px-4 py-2 m-2'
-    onClick={() => updateCount(index)}
-  >
-    choice {index}
-  </div>
-);
+const Choice = ({ index }) => {
+  const [response, { data }] = useMutation(VOTE);
+
+  return (
+    <div
+      className='flex-1 text-center px-4 py-2 m-2'
+      onClick={() =>
+        console.log(response({ variables: { option: `choice ${index}` } }))
+      }
+    >
+      choice {index}
+    </div>
+  );
+};
 
 const Choices = props => (
   <div className='flex items-stretch h-16'>
     {[0, 1].map(index => (
-      <Choice key={index} {...props} index={index} />
+      <Choice key={index} index={index} />
     ))}
   </div>
 );
@@ -94,20 +111,13 @@ const Slide = () => {
   const [counts, setCounts] = useState([0, 0]);
   const [timeLeft, setTimeLeft] = useState(100);
 
-  const updateCount = counterIndex => {
-    const updatedCounts = counts;
-    updatedCounts[counterIndex] = updatedCounts[counterIndex] + 1;
-    setCounts(updatedCounts);
-    setTimeLeft(timeLeft - 1);
-  };
-
   return (
     <ApolloProvider client={client}>
       <div className='text-gray-100'>
         <Display counts={counts} />
         <div className='w-full pin-b absolute bottom-0 left-0'>
           <Progress timeLeft={timeLeft} />
-          <Choices updateCount={updateCount} />
+          <Choices />
         </div>
       </div>
     </ApolloProvider>
