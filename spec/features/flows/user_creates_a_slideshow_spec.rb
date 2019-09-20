@@ -3,8 +3,12 @@ require "rails_helper"
 feature "User creates a slideshow", js: true do
   scenario "Michael creates a slideshow about his slideshow software" do
     # TODO: add ability to authenticate
-    When "Michael creates a slideshow"
-    # click new
+    When "Michael creates a slideshow" do
+      # TODO: title
+      # TODO: styling
+      visit root_path
+      focus_on(:landing).follow_action("create")
+    end
     # give it a name: My Slideshow software
 
     And "adds a beginning slide"
