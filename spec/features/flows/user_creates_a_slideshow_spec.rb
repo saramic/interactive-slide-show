@@ -9,6 +9,10 @@ feature "User creates a slideshow", js: true do
       visit root_path
       focus_on(:landing).follow_action("create")
     end
+
+    Then "he is informed he needs to sign in or sign up" do
+      wait_for { focus_on(:landing).messages }.to eq "Please sign in to continue."
+    end
     # give it a name: My Slideshow software
 
     And "adds a beginning slide"
