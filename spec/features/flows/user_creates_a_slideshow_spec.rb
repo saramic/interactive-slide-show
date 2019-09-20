@@ -13,6 +13,24 @@ feature "User creates a slideshow", js: true do
     Then "he is informed he needs to sign in or sign up" do
       wait_for { focus_on(:landing).messages }.to eq "Please sign in to continue."
     end
+
+    When "he goes to sign up" do
+      focus_on(:landing).follow_action("Sign up")
+    end
+
+    And "signs up with his email and a password" do
+      focus_on(:landing).sign_up(
+        Email: "saramic@gmail.com",
+        Password: "1password",
+      )
+    end
+
+    Then "he is signed in and can create a slideshow" do
+      pending "add flash messages to administrate"
+      wait_for { focus_on(:landing).messages }.to eq "Signed in as: saramic@gmail.com"
+      # TODO: auto associate slideshow with user who is signed in
+    end
+
     # give it a name: My Slideshow software
 
     And "adds a beginning slide"
