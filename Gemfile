@@ -31,6 +31,15 @@ gem 'bootsnap', '>= 1.4.2', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails'
+  gem 'rspec-example_steps'
+  gem 'capybara', '>= 3.14'
+  gem 'capybara-screenshot'
+  gem 'selenium-webdriver'
+  gem 'webdrivers', '~> 3.0'
+  gem 'rspec-wait'
+
+  gem 'pry-rails'
 end
 
 group :development do
