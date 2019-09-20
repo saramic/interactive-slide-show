@@ -10,6 +10,7 @@ presenter to have real time interaction from the audience.
 - have a "choose your own adventure" style slide show to present at [Ruby
   Melbourne Meetup - Oct
   2019](https://www.meetup.com/Ruby-On-Rails-Oceania-Melbourne/events/hrznsqyznbnc/)
+
   - [Issue #140](https://github.com/rails-oceania/melbourne-ruby/issues/140)
 
 - have a "worm" for a joint slide show by my kids. The worm will be a death
@@ -48,25 +49,33 @@ yarn test
 
 some initial spikes
 
-- [ ] Proof of concpet of using apollo and subscriptions over web socket
-  - [ ] **in progress** follow getting started -
-    https://www.apollographql.com/docs/tutorial/introduction/
+- [ ] build MVP
+- [ ] Proof of concpet of using apollo ~~and subscriptions over web socket~~
+
+  - [x] **in progress** follow getting started -
+        https://www.apollographql.com/docs/tutorial/introduction/
+
     - [x] get basic voting data source up
-    - [ ] connect client to voting data source
+    - [x] connect client to voting data source
     - [ ] demo Apollo GraphQL subscriptions
+
+      - putting this on hold as it may not be the best option and polling is not a show stopper so pushing forward in getting a working product first
+
+        - is polling better in this case [When to use subscriptions](https://www.apollographql.com/docs/react/advanced/subscriptions/#when-to-use-subscriptions)
+        - [subscription client setup](https://www.apollographql.com/docs/react/advanced/subscriptions/#client-setup)
+        - [subscription server setup](https://www.apollographql.com/docs/graphql-subscriptions/)
+
 - [ ] **in progress** visual design asspect of the choice module both for
-  participant ~~and presenter~~
+      participant ~~and presenter~~
   - [x] setup a CSS framework like Tailwind CSS
     - https://itnext.io/how-to-use-tailwind-css-with-react-16e9d478b8b1
     - https://medium.com/@mikeeeeeeey/create-react-app-tailwind-css-feat-postcss-631d9e33ba8c
   - [ ] animate the progress bar - probably React start and stop? and CSS for
-    smothness
+        smothness
 - [ ] plugin ability to control [MDX deck](https://github.com/jxnblk/mdx-deck)
-  a proposed first slide show support tool
-- [ ] build MVP
+      a proposed first slide show support tool
 - [ ] plugin for MDX deck
 - [ ] plugin to other slide shows like Google Sheets
 - [ ] interactive controller as a service
 - [ ] slide show as a service with the controller
-- [ ] profit $$$
-
+- [ ] profit \$\$\$
