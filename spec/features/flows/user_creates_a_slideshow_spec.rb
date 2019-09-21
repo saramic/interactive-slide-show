@@ -86,9 +86,43 @@ feature "User creates a slideshow", js: true do
       )
     end
 
-    And "hits publish"
+    And "he goes to the slides show and gets the start slideshow link" do
+      focus_on(:dashboard).go_to_slideshow("My slideshow software")
+      @start_link = focus_on(:dashboard).start_slideshow_link
+    end
 
-    Then "The slide show is published"
+    And "he logs out" do
+      focus_on(:dashboard).form_action("Sign out")
+    end
+
+    Then "he is on the landing page"
+
+    When "his friend Ambrose follows his slide show start link" do
+      visit @start_link
+    end
+
+    Then "he is asked to sign in or sign up" do
+      wait_for {
+        focus_on(:landing).messages
+      }.to eq "Please sign in to continue."
+    end
+
+    When "Ambrose signs up" do
+      focus_on(:landing).form_action("Sign up")
+      focus_on(:landing).form_action(
+        "Sign up",
+        Email: "ambrose@gmail.com",
+        Password: "1password",
+      )
+    end
+
+    Then "he sees the first slide of the slide show" do
+      wait_for { focus_on(:slideshow).content }.to eq "My slideshow software"
+    end
+
+    When "he votes for the next slide"
+    Then "the next slide is shown"
+    # until last slide
 
     When "Michael views the slideshow"
     Then "The first slide is shown"

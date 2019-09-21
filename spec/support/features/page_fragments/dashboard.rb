@@ -41,5 +41,14 @@ module PageFragments
         args.select { |label, value| label.to_sym != :Slideshow }
       )
     end
+
+    def go_to_slideshow(title)
+      form_action("Slideshows")
+      browser.click_on(title)
+    end
+
+    def start_slideshow_link
+      browser.find("a", text: "start")["href"]
+    end
   end
 end
