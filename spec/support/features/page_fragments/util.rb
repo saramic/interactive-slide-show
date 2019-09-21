@@ -7,6 +7,12 @@ module PageFragments
       browser.click_on(action)
     end
 
+    def select(args = {})
+      args.each do |field, value|
+        browser.select(value, from: field.to_s)
+      end
+    end
+
     def key_value(key_finder, value_finder)
       browser.synchronize do
         keys = browser.find_all(key_finder).map(&:text)

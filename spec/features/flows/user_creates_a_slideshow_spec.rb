@@ -53,17 +53,38 @@ feature "User creates a slideshow", js: true do
       ))
     end
 
-    And "adds a beginning slide"
-    { short: "Intro", long: "My slideshow software", type: "1st" }
-
-    And "adds slides about every aspect of the slideshow software"
-    { short: "Inspiration", long: "Inspiration - kahoots and multi person cart", type: "normal" }
-    { short: "Architecture", long: "Rails React GraphQL and Apollo", type: "normal" }
-    { short: "Next steps", long: "service on line and plugin to work", type: "normal" }
-    { short: "Testing approach", long: "light sprinkle of high level BDD", type: "normal" }
-
-    And "adds an ending slide"
-    { short: "The End", long: "Thankyou", type: "last" }
+    When "he adds some slides" do
+      focus_on(:dashboard).add_slide(
+        Slideshow: "My slideshow software",
+        Title: "Intro",
+        Content: "My slideshow software",
+      )
+      focus_on(:dashboard).add_slide(
+        Slideshow: "My slideshow software",
+        Title: "Inspiration",
+        Content: "Inspiration - kahoots and multi person cart",
+      )
+      focus_on(:dashboard).add_slide(
+        Slideshow: "My slideshow software",
+        Title: "Architecture",
+        Content: "Rails React GraphQL and Apollo",
+      )
+      focus_on(:dashboard).add_slide(
+        Slideshow: "My slideshow software",
+        Title: "Next steps",
+        Content: "service on line and plugin to work",
+      )
+      focus_on(:dashboard).add_slide(
+        Slideshow: "My slideshow software",
+        Title: "Testing approach",
+        Content: "light sprinkle of high level BDD",
+      )
+      focus_on(:dashboard).add_slide(
+        Slideshow: "My slideshow software",
+        Title: "The End",
+        Content: "Thankyou",
+      )
+    end
 
     And "hits publish"
 

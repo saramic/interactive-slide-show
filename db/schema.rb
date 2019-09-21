@@ -10,11 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_20_202020) do
+ActiveRecord::Schema.define(version: 2019_09_21_064022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "slides", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "title", null: false
+    t.text "content"
+    t.uuid "slideshow_id"
+    t.integer "ordinal", null: false
+    t.index ["ordinal", "slideshow_id"], name: "index_slides_on_ordinal_and_slideshow_id"
+    t.index ["slideshow_id"], name: "index_slides_on_slideshow_id"
+  end
 
   create_table "slideshows", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title", null: false

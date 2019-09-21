@@ -27,5 +27,19 @@ module PageFragments
     def details
       key_value("dl dt", "dl dd")
     end
+
+    def add_slide(args = {})
+      form_action("Slides")
+      form_action("New slide")
+      args
+        .select { |label, value| label.to_sym == :Slideshow }
+        .each { |label, value|
+        select(label => value)
+      }
+      form_action(
+        "Create Slide",
+        args.select { |label, value| label.to_sym != :Slideshow }
+      )
+    end
   end
 end
