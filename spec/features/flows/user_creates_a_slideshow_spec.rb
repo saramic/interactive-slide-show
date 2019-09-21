@@ -7,31 +7,51 @@ feature "User creates a slideshow", js: true do
       # TODO: title
       # TODO: styling
       visit root_path
-      focus_on(:landing).follow_action("create")
+      focus_on(:landing).form_action("create")
     end
 
     Then "he is informed he needs to sign in or sign up" do
-      wait_for { focus_on(:landing).messages }.to eq "Please sign in to continue."
+      wait_for {
+        focus_on(:landing).messages
+      }.to eq "Please sign in to continue."
     end
 
     When "he goes to sign up" do
-      focus_on(:landing).follow_action("Sign up")
+      focus_on(:landing).form_action("Sign up")
     end
 
     And "signs up with his email and a password" do
-      focus_on(:landing).sign_up(
+      focus_on(:landing).form_action(
+        "Sign up",
         Email: "saramic@gmail.com",
         Password: "1password",
       )
     end
 
     Then "he is signed in and can create a slideshow" do
-      pending "add flash messages to administrate"
-      wait_for { focus_on(:landing).messages }.to eq "Signed in as: saramic@gmail.com"
+      wait_for {
+        focus_on(:dashboard).navigation.account
+      }.to eq "Signed in as: saramic@gmail.com"
+      wait_for { focus_on(:dashboard).title }.to eq "New Slideshows"
       # TODO: auto associate slideshow with user who is signed in
     end
 
-    # give it a name: My Slideshow software
+    When 'he creates a slideshow "My slideshow software"' do
+      focus_on(:dashboard).form_action(
+        "Create Slideshow",
+        Title: "My slideshow software",
+      )
+    end
+
+    Then "the slideshow is successfully created" do
+      dashboard = focus_on(:dashboard)
+      wait_for {
+        dashboard.messages
+      }.to eq "Slideshow was successfully created."
+      wait_for { dashboard.details }.to match(hash_including(
+        TITLE: "My slideshow software",
+      ))
+    end
 
     And "adds a beginning slide"
     { short: "Intro", long: "My slideshow software", type: "1st" }

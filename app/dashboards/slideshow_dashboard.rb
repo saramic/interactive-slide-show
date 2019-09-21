@@ -42,7 +42,6 @@ class SlideshowDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
   title
-  user_id
   ].freeze
 
   # COLLECTION_FILTERS

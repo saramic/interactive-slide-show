@@ -30,5 +30,26 @@ module Admin
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
+
+    # overwritten from original, is there a better way to set scope for current_user?
+    # gems/administrate-0.12.0/app/controllers/administrate/application_controller.rb
+    def create
+      resource = resource_class.new(
+        # override with current user
+        resource_params.merge(user_id: current_user.id)
+      )
+      authorize_resource(resource)
+
+      if resource.save
+        redirect_to(
+          [namespace, resource],
+          notice: translate_with_resource("create.success"),
+        )
+      else
+        render :new, locals: {
+                       page: Administrate::Page::Form.new(dashboard, resource),
+                     }
+      end
+    end
   end
 end
