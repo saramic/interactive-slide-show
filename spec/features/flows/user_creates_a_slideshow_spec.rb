@@ -3,7 +3,6 @@ require "rails_helper"
 feature "User creates a slideshow and another user views it", js: true do
   scenario "Michael creates a slideshow about his slideshow software" do
     When "Michael creates a slideshow" do
-      # TODO: title
       # TODO: styling
       visit root_path
       focus_on(:landing).form_action("create")
@@ -133,6 +132,22 @@ feature "User creates a slideshow and another user views it", js: true do
 
     Then "he is on the last slide" do
       wait_for { focus_on(:slideshow).content }.to eq "Thankyou"
+    end
+
+    When "he clicks on start" do
+      focus_on(:slideshow).form_action("start")
+    end
+
+    Then "he sees the first slide again" do
+      wait_for { focus_on(:slideshow).content }.to eq "My slideshow software"
+    end
+
+    When "he clicks on home" do
+      focus_on(:slideshow).form_action("home")
+    end
+
+    Then "he sees the landing page" do
+      wait_for { focus_on(:landing).title }.to eq "Interactive Slide Show"
     end
 
     And "Connectivity statistics"

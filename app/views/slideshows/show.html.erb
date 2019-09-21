@@ -1,4 +1,7 @@
 <main>
+  <section data-testid="header">
+    <%= link_to 'start', slideshow_path(id: @current_slide.slideshow.id) %>
+  </section>
   <section data-testid="content">
     <%= @current_slide.content %>
   </section>
