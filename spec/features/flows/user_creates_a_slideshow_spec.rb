@@ -1,8 +1,7 @@
 require "rails_helper"
 
-feature "User creates a slideshow", js: true do
+feature "User creates a slideshow and another user views it", js: true do
   scenario "Michael creates a slideshow about his slideshow software" do
-    # TODO: add ability to authenticate
     When "Michael creates a slideshow" do
       # TODO: title
       # TODO: styling
@@ -120,12 +119,22 @@ feature "User creates a slideshow", js: true do
       wait_for { focus_on(:slideshow).content }.to eq "My slideshow software"
     end
 
-    When "he votes for the next slide"
-    Then "the next slide is shown"
-    # until last slide
+    When "he goes through all the slides" do
+      [
+        "Inspiration",
+        "Architecture",
+        "Next steps",
+        "Testing approach",
+        "The End",
+      ].each do |next_slide_link_text|
+        focus_on(:slideshow).choose(next_slide_link_text)
+      end
+    end
 
-    When "Michael views the slideshow"
-    Then "The first slide is shown"
+    Then "he is on the last slide" do
+      wait_for { focus_on(:slideshow).content }.to eq "Thankyou"
+    end
+
     And "Connectivity statistics"
     # TODO: how to test with multiple users logged in?
   end

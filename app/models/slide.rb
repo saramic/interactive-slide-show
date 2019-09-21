@@ -3,6 +3,11 @@ class Slide < ApplicationRecord
 
   before_create :increment_ordinal
 
+  def next
+    current_index = slideshow.slides.find_index { |slide| slide == self }
+    slideshow.slides.slice(current_index + 1, 2)
+  end
+
   private
 
   def increment_ordinal

@@ -1,3 +1,10 @@
 <main>
-  <%= @slideshow.slides.first.content %>
+  <section data-testid="content">
+    <%= @current_slide.content %>
+  </section>
+  <section data-testid="next">
+    <% @current_slide.next.each do |slide| %>
+      <%= link_to slide.title, slideshow_slide_path(slideshow_id: slide.slideshow.id, id: slide.id) %>
+    <% end %>
+  </section>
 </main>
