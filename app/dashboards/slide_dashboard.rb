@@ -1,5 +1,6 @@
 require "administrate/base_dashboard"
 
+# rubocop:disable Metrics/LineLength
 class SlideDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
@@ -11,7 +12,7 @@ class SlideDashboard < Administrate::BaseDashboard
     slideshow: Field::BelongsTo,
     id: Field::String.with_options(searchable: false),
     title: Field::String,
-    content: Field::Text,
+    content: Field::Text
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -20,28 +21,28 @@ class SlideDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-  slideshow
-  id
-  title
-  content
+    slideshow
+    id
+    title
+    content
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-  slideshow
-  id
-  title
-  content
+    slideshow
+    id
+    title
+    content
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-  slideshow
-  title
-  content
+    slideshow
+    title
+    content
   ].freeze
 
   # COLLECTION_FILTERS
@@ -63,3 +64,5 @@ class SlideDashboard < Administrate::BaseDashboard
   #   "Slide ##{slide.id}"
   # end
 end
+
+# rubocop:enable Metrics/LineLength

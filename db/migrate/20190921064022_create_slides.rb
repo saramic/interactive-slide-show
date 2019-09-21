@@ -6,6 +6,6 @@ class CreateSlides < ActiveRecord::Migration[6.0]
       t.references :slideshow, type: :uuid
       t.integer :ordinal, null: false
     end
-    add_index :slides, [:ordinal, :slideshow_id]
+    add_index :slides, %i[ordinal slideshow_id]
   end
 end

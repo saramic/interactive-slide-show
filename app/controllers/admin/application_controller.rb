@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/LineLength
 # All Administrate controllers inherit from this `Admin::ApplicationController`,
 # making it the ideal place to put authentication logic or other
 # before_actions.
@@ -20,3 +21,5 @@ module Admin
     # end
   end
 end
+
+# rubocop:enable Metrics/LineLength

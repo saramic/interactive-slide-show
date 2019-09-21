@@ -46,6 +46,9 @@ group :development, :test do
   gem 'rspec-wait'
 
   gem 'pry-rails'
+
+  gem 'rubocop'         
+  gem 'rubocop-performance'                                                   
 end
 
 group :development do

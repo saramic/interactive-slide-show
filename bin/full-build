@@ -8,6 +8,7 @@ then
   # DO NOTHING if you choose to opt out of linting
   echo 'NOT checking for pretty code'
 else
+  bundle exec rubocop
   yarn lint
 fi
 

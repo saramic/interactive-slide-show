@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/LineLength
 module Admin
   class SlideshowsController < Admin::ApplicationController
     # Overwrite any of the RESTful controller actions to implement custom behavior
@@ -33,6 +34,8 @@ module Admin
 
     # overwritten from original, is there a better way to set scope for current_user?
     # gems/administrate-0.12.0/app/controllers/administrate/application_controller.rb
+
+    # rubocop:disable Metrics/MethodLength
     def create
       resource = resource_class.new(
         # override with current user
@@ -43,13 +46,17 @@ module Admin
       if resource.save
         redirect_to(
           [namespace, resource],
-          notice: translate_with_resource("create.success"),
+          notice: translate_with_resource("create.success")
         )
       else
         render :new, locals: {
-                       page: Administrate::Page::Form.new(dashboard, resource),
-                     }
+          page: Administrate::Page::Form.new(dashboard, resource)
+        }
       end
     end
+
+    # rubocop:enable Metrics/MethodLength
   end
 end
+
+# rubocop:enable Metrics/LineLength

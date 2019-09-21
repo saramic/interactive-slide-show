@@ -9,9 +9,9 @@ feature "User creates a slideshow and another user views it", js: true do
     end
 
     Then "he is informed he needs to sign in or sign up" do
-      wait_for {
+      wait_for do
         focus_on(:landing).messages
-      }.to eq "Please sign in to continue."
+      end.to eq "Please sign in to continue."
     end
 
     When "he goes to sign up" do
@@ -22,14 +22,14 @@ feature "User creates a slideshow and another user views it", js: true do
       focus_on(:landing).form_action(
         "Sign up",
         Email: "saramic@gmail.com",
-        Password: "1password",
+        Password: "1password"
       )
     end
 
     Then "he is signed in and can create a slideshow" do
-      wait_for {
+      wait_for do
         focus_on(:dashboard).navigation.account
-      }.to eq "Signed in as: saramic@gmail.com"
+      end.to eq "Signed in as: saramic@gmail.com"
       wait_for { focus_on(:dashboard).title }.to eq "New Slideshows"
       # TODO: auto associate slideshow with user who is signed in
     end
@@ -37,50 +37,52 @@ feature "User creates a slideshow and another user views it", js: true do
     When 'he creates a slideshow "My slideshow software"' do
       focus_on(:dashboard).form_action(
         "Create Slideshow",
-        Title: "My slideshow software",
+        Title: "My slideshow software"
       )
     end
 
     Then "the slideshow is successfully created" do
       dashboard = focus_on(:dashboard)
-      wait_for {
+      wait_for do
         dashboard.messages
-      }.to eq "Slideshow was successfully created."
-      wait_for { dashboard.details }.to match(hash_including(
-        TITLE: "My slideshow software",
-      ))
+      end.to eq "Slideshow was successfully created."
+      wait_for do
+        dashboard.details
+      end.to match(hash_including(
+                     TITLE: "My slideshow software"
+                   ))
     end
 
     When "he adds some slides" do
       focus_on(:dashboard).add_slide(
         Slideshow: "My slideshow software",
         Title: "Intro",
-        Content: "My slideshow software",
+        Content: "My slideshow software"
       )
       focus_on(:dashboard).add_slide(
         Slideshow: "My slideshow software",
         Title: "Inspiration",
-        Content: "Inspiration - kahoots and multi person cart",
+        Content: "Inspiration - kahoots and multi person cart"
       )
       focus_on(:dashboard).add_slide(
         Slideshow: "My slideshow software",
         Title: "Architecture",
-        Content: "Rails React GraphQL and Apollo",
+        Content: "Rails React GraphQL and Apollo"
       )
       focus_on(:dashboard).add_slide(
         Slideshow: "My slideshow software",
         Title: "Next steps",
-        Content: "service on line and plugin to work",
+        Content: "service on line and plugin to work"
       )
       focus_on(:dashboard).add_slide(
         Slideshow: "My slideshow software",
         Title: "Testing approach",
-        Content: "light sprinkle of high level BDD",
+        Content: "light sprinkle of high level BDD"
       )
       focus_on(:dashboard).add_slide(
         Slideshow: "My slideshow software",
         Title: "The End",
-        Content: "Thankyou",
+        Content: "Thankyou"
       )
     end
 
@@ -100,9 +102,9 @@ feature "User creates a slideshow and another user views it", js: true do
     end
 
     Then "he is asked to sign in or sign up" do
-      wait_for {
+      wait_for do
         focus_on(:landing).messages
-      }.to eq "Please sign in to continue."
+      end.to eq "Please sign in to continue."
     end
 
     When "Ambrose signs up" do
@@ -110,12 +112,14 @@ feature "User creates a slideshow and another user views it", js: true do
       focus_on(:landing).form_action(
         "Sign up",
         Email: "ambrose@gmail.com",
-        Password: "1password",
+        Password: "1password"
       )
     end
 
     Then "he sees the first slide of the slide show" do
-      wait_for { focus_on(:slideshow).content }.to eq "My slideshow software"
+      wait_for do
+        focus_on(:slideshow).content
+      end.to eq "My slideshow software"
     end
 
     When "he goes through all the slides" do
@@ -124,7 +128,7 @@ feature "User creates a slideshow and another user views it", js: true do
         "Architecture",
         "Next steps",
         "Testing approach",
-        "The End",
+        "The End"
       ].each do |next_slide_link_text|
         focus_on(:slideshow).choose(next_slide_link_text)
       end
@@ -139,7 +143,9 @@ feature "User creates a slideshow and another user views it", js: true do
     end
 
     Then "he sees the first slide again" do
-      wait_for { focus_on(:slideshow).content }.to eq "My slideshow software"
+      wait_for do
+        focus_on(:slideshow).content
+      end.to eq "My slideshow software"
     end
 
     When "he clicks on home" do
