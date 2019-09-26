@@ -7,7 +7,9 @@ module.exports = {
     "plugin:jest/recommended"
   ],
   globals: {
-    document: false
+    document: false,
+    fetch: false,
+    window: false
   },
   settings: {
     "import/resolver": {

@@ -1,14 +1,18 @@
 <main>
-  <section data-testid="header">
+ <section data-testid="header">
     <%= link_to 'start', slideshow_path(id: @current_slide.slideshow.id) %>
   </section>
-  <section data-testid="content">
+  <section data-testid="slide-content">
     <%= @current_slide.content %>
   </section>
-  <%= javascript_pack_tag 'slideshow' %>
-  <section data-testid="next">
+ <%
+=begin%>
+ <%= javascript_pack_tag 'slideshow' %>   
+<%
+=end%>
+  <section data-testid="next-slide">
     <% @current_slide.next.each do |slide| %>
       <%= link_to slide.title, slideshow_slide_path(slideshow_id: slide.slideshow.id, id: slide.id) %>
-    <% end %>
+    <% end %>  
   </section>
 </main>

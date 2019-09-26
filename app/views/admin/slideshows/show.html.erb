@@ -46,5 +46,12 @@ as well as a link to its edit page.
           ><%= render_field attribute, page: page %></dd>
     <% end %>
   </dl>
-  <%= link_to 'start', slideshow_path(id: page.resource.id) %>
+  <% if !page.resource.slides.empty? %>
+    <%= link_to 'start',
+      slideshow_slide_path(
+        slideshow_id: page.resource.id,
+        id: page.resource.slides.first
+      )
+    %>
+  <% end %>
 </section>
