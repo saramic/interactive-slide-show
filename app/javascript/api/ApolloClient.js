@@ -4,6 +4,7 @@ import ApolloClient from "apollo-client";
 import { createHttpLink } from "apollo-link-http";
 import { setContext } from "apollo-link-context";
 import { InMemoryCache } from "apollo-cache-inmemory";
+import { xCsrfToken } from "./clearnace";
 
 const httpLink = createHttpLink({
   uri: "/graphql"
@@ -16,6 +17,7 @@ const authLink = setContext((_, { headers }) => {
   // return the headers to the context so httpLink can read them
   return {
     headers: {
+      "X-CSRF-Token": xCsrfToken(),
       ...headers
     }
   };

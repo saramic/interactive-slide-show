@@ -4,6 +4,6 @@ class SlidesController < ApplicationController
 
   def show
     @current_slide = Slide.find(params[:id])
-    render template: "slideshows/show"
+    render template: "slideshows/show#{params['spa'] && '_spa'}"
   end
 end

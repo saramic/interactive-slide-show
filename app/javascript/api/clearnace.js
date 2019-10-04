@@ -1,5 +1,9 @@
-const xCsrfToken = () =>
-  /<meta name="csrf-token" content="(.*)">/.exec(document.head.innerHTML)[1];
+const xCsrfToken = () => {
+  const match = /<meta name="csrf-token" content="(.*)">/.exec(
+    document.head.innerHTML
+  );
+  return match && match[1];
+};
 
 const signOut = () => {
   fetch("/sign_out", {

@@ -5,14 +5,9 @@
   <section data-testid="slide-content">
     <%= @current_slide.content %>
   </section>
- <%
-=begin%>
- <%= javascript_pack_tag 'slideshow' %>   
-<%
-=end%>
   <section data-testid="next-slide">
     <% @current_slide.next.each do |slide| %>
       <%= link_to slide.title, slideshow_slide_path(slideshow_id: slide.slideshow.id, id: slide.id) %>
-    <% end %>  
+    <% end %>
   </section>
 </main>

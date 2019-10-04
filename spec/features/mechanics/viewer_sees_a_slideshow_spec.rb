@@ -21,6 +21,11 @@ feature "Viwer can page through a slideshow", js: true do
         slideshow_id: slideshow.id,
         id: slideshow.slides.first
       )
+      @start_spa_link = slideshow_slide_path(
+        slideshow_id: slideshow.id,
+        id: slideshow.slides.first,
+        spa: 1
+      )
     end
 
     scenario "Hod, a viewer, sees the sildes in Thor's slideshow" do
@@ -42,6 +47,40 @@ feature "Viwer can page through a slideshow", js: true do
           Email: "hod@gmail.com",
           Password: "1password"
         )
+      end
+
+      Then "he sees the first slide of the slide show" do
+        wait_for do
+          focus_on(:slideshow).content
+        end.to eq "1"
+      end
+
+      When "he goes through all the slides" do
+        [
+          "slide 2",
+          "slide 3",
+          "slide 4"
+        ].each do |next_slide_link_text|
+          focus_on(:slideshow).choose(next_slide_link_text)
+        end
+      end
+
+      Then "he is on the last slide" do
+        wait_for { focus_on(:slideshow).content }.to eq "4"
+      end
+
+      When "he clicks on start" do
+        focus_on(:slideshow).form_action("start")
+      end
+
+      Then "he sees the first slide again" do
+        wait_for do
+          focus_on(:slideshow).content
+        end.to eq "1"
+      end
+
+      When "Hod visits the new SPA version of the slides" do
+        visit @start_spa_link
       end
 
       Then "he sees the first slide of the slide show" do
