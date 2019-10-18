@@ -37,6 +37,8 @@ gem 'clearance'
 # graphql
 gem 'graphql'
 
+gem 'aasm'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -49,9 +51,14 @@ group :development, :test do
   gem 'rspec-wait'
 
   gem 'pry-rails'
+  gem 'pry-stack_explorer'
+  gem 'pry-byebug'
 
-  gem 'rubocop'         
-  gem 'rubocop-performance'                                                   
+  gem 'rubocop'
+  gem 'rubocop-performance'
+
+  gem 'factory_bot_rails'
+  gem 'database_cleaner'
 end
 
 group :development do
