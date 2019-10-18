@@ -4,14 +4,32 @@ describe "Create and present to an audience", type: :model do
   scenario "Create and present to an audience" do
     Given "A creator creates a number of slideshows" do
       @creator = create :user
-      @slideshow = create :slideshow, user: @creator
+      @slideshow_intro = create :slideshow, user: @creator
       # if created as part of slideshow
       #   slides: [build(:slide), build(:slide)]
       # seem to have issue with sequential oridinals and cannot
       # ovewrite them
-      @slideshow.slides << build(:slide)
-      @slideshow.slides << build(:slide)
-      @slideshow.slides << build(:slide)
+      @slideshow_intro.slides << build(:slide, title: "Intro")
+
+      @slideshow_worm = create :slideshow, user: @creator
+
+      @slideshow_worm.slides << build(:slide)
+      @slideshow_worm.slides << build(:slide)
+      @slideshow_worm.slides << build(:slide)
+      @slideshow_worm.slides << build(:slide)
+
+      @slideshow_intermission = create :slideshow, user: @creator
+      @slideshow_intermission.slides << build(:slide,
+                                              title: "Intermission")
+
+      @slideshow_choice = create :slideshow, user: @creator
+      @slideshow_choice.slides << build(:slide)
+      @slideshow_choice.slides << build(:slide)
+      @slideshow_choice.slides << build(:slide)
+      @slideshow_choice.slides << build(:slide)
+
+      @slideshow_finale = create :slideshow, user: @creator
+      @slideshow_finale.slides << build(:slide, title: "Finale")
     end
 
     And "Creates a viewing for an audience"
