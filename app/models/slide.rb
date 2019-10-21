@@ -1,5 +1,6 @@
 class Slide < ApplicationRecord
   belongs_to :slideshow
+  has_many :quizzes, as: :quizzable
 
   before_create :increment_ordinal
 
