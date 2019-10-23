@@ -28,6 +28,10 @@ module PageFragments
       key_value("dl dt", "dl dd")
     end
 
+    def table_rows
+      key_value("tr th", "tr td")
+    end
+
     # rubocop:disable Metrics/MethodLength
     def add_slide(args = {})
       form_action("Slides")

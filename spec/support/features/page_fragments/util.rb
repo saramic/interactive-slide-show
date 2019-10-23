@@ -17,7 +17,12 @@ module PageFragments
       browser.synchronize do
         keys = browser.find_all(key_finder).map(&:text)
         values = browser.find_all(value_finder).map(&:text)
-        keys.zip(values).to_h.with_indifferent_access
+        key_values = values
+          .each_slice(keys.length)
+          .map { |value| keys.zip(value).to_h.with_indifferent_access }
+        key_values.length == 1 ?
+          key_values.first :
+          key_values
       end
     end
   end
