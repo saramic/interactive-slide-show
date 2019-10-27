@@ -8,7 +8,7 @@ module Resolvers
 
     def resolve(id:)
       ::Viewing
-        .includes(:users)
+        .includes(:users, :presentation)
         .find(id)
     end
   end

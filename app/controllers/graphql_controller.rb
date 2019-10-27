@@ -6,13 +6,13 @@ class GraphqlController < ApplicationController
     operation_name = params[:operationName]
     context = {
       # Query context goes here, for example:
-      # current_user: current_user,
+      current_user: current_user,
     }
     result = InteractiveSlideShowSchema.execute(
       query,
       variables: variables,
       context: context,
-      operation_name: operation_name
+      operation_name: operation_name,
     )
     render json: result
   rescue StandardError => e
@@ -20,6 +20,7 @@ class GraphqlController < ApplicationController
 
     handle_error_in_development e
   end
+
   # rubocop:enable Metrics/MethodLength
 
   private
@@ -42,6 +43,7 @@ class GraphqlController < ApplicationController
       raise ArgumentError, "Unexpected parameter: #{ambiguous_param}"
     end
   end
+
   # rubocop:enable Metrics/MethodLength
 
   # rubocop:disable Naming/UncommunicativeMethodParamName
@@ -51,9 +53,10 @@ class GraphqlController < ApplicationController
 
     render json: {
       error: {
-        message: e.message, backtrace: e.backtrace
-      }, data: {}
+        message: e.message, backtrace: e.backtrace,
+      }, data: {},
     }, status: 500
   end
+
   # rubocop:enable Naming/UncommunicativeMethodParamName
 end
