@@ -18,7 +18,7 @@ feature "RORO presentation Wed 30th October", js: true do
       end
 
       When "he creates an intro slideshow" do
-        sleep(1) # TODO is something loading and the form field cannot be filled in?
+        sleep(1) # TODO: is something loading and the form field cannot be filled in?
         focus_on(:dashboard).form_action(
           "Create Slideshow",
           Title: "Intro Slideshow",
@@ -39,7 +39,7 @@ feature "RORO presentation Wed 30th October", js: true do
         )
       end
 
-      # TODO maybe do this in a before block
+      # TODO: maybe do this in a before block
       And "he creates the kids slideshow" do
         focus_on(:dashboard).form_action("Slideshows")
         focus_on(:dashboard).form_action("New slideshow")
@@ -68,7 +68,7 @@ feature "RORO presentation Wed 30th October", js: true do
         )
       end
 
-      # TODO maybe do this in a before block
+      # TODO: maybe do this in a before block
       And "he creates the how slideshow works slideshow" do
         focus_on(:dashboard).form_action("Slideshows")
         focus_on(:dashboard).form_action("New slideshow")
@@ -99,15 +99,15 @@ feature "RORO presentation Wed 30th October", js: true do
 
       Then "there are 5 slideshows" do
         focus_on(:dashboard).form_action("Slideshows")
-        wait_for {
+        wait_for do
           focus_on(:dashboard).table_rows.map { |row| row.slice(:Title) }
-        }.to eq([
-               { "Title" => "Intro Slideshow" },
-               { "Title" => "Code for RailsCamp" },
-               { "Title" => "Intermission" },
-               { "Title" => "How slideshow" },
-               { "Title" => "Finale" },
-             ])
+        end.to eq([
+                    { "Title" => "Intro Slideshow" },
+                    { "Title" => "Code for RailsCamp" },
+                    { "Title" => "Intermission" },
+                    { "Title" => "How slideshow" },
+                    { "Title" => "Finale" },
+                  ])
       end
 
       When "he creates a viewing and adds the slideshows"
@@ -270,6 +270,45 @@ feature "RORO presentation Wed 30th October", js: true do
 
       # And "Connectivity statistics"
       # # TODO: how to test with multiple users logged in?
+    end
+
+    context "everything is hacked in to run an audience through presentations" do
+      before do
+        @viewing = Viewing.create(presenter: @michael)
+        @slideshow_intro = create(
+          :slideshow, user: @michael, title: "Intro Slideshow",
+        )
+        @slideshow_intro.slides << build(:slide, title: "Intro")
+        @intro_slide = @slideshow_intro.slides.first
+        @intro_slide.quizzes << Quiz.new(title: "Test Quiz",
+                                         quiz_type: :poll,
+                                         quiz_options: [
+                                           QuizOption.new(text: "A"),
+                                           QuizOption.new(text: "B"),
+                                         ])
+        @intro_quiz = @intro_slide.quizzes.first
+        @slideshow_intro.slides << build(:slide, title: "Intro")
+        @intro_slide = @slideshow_intro.slides.first
+        @intro_slide.quizzes << Quiz.new(title: "Test Quiz",
+                                         quiz_type: :poll,
+                                         quiz_options: [
+                                           QuizOption.new(text: "A"),
+                                           QuizOption.new(text: "B"),
+                                         ])
+        @intro_quiz = @intro_slide.quizzes.first
+      end
+
+      scenario "Michael shares the link and runs the presentation" do
+        When "the link http://bit-ly/roro-44 is shared" do
+          visit viewing_path(id: @viewing.id)
+        end
+
+        And "Ambrose, Gracie and Sarah join in" do
+        end
+
+        Then "there are 3 registered viewers on the presentation" do
+        end
+      end
     end
   end
 end

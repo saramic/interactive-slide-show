@@ -9,10 +9,10 @@ class PresentedQuiz < ApplicationRecord
     return result_over_time if quiz.quiz_type == "worm"
   end
 
-  alias_method :original_presented_quiz_options, :presented_quiz_options
+  alias original_presented_quiz_options presented_quiz_options
 
   def presented_quiz_options
-    if quiz.quiz_type == "choice" && self.original_presented_quiz_options.empty?
+    if quiz.quiz_type == "choice" && original_presented_quiz_options.empty?
       (quiz.quizzable.reload.slides -
        quizzable.presentation.presented_slides.map(&:slide))
         .sample(2)
@@ -20,13 +20,13 @@ class PresentedQuiz < ApplicationRecord
         original_presented_quiz_options << PresentedQuizOption.new(text: slide.title)
       end
     end
-    self.original_presented_quiz_options
+    original_presented_quiz_options
   end
 
   private
 
   def result_cumulative
-    # TODO why does a join group sum not work?
+    # TODO: why does a join group sum not work?
     # votes.joins(:quiz_option).group(quiz_option: :text).sum
     votes
       .each_with_object(Hash.new(0)) do |vote, acc|

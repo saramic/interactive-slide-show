@@ -4,8 +4,8 @@ class Quiz < ApplicationRecord
   has_many :presented_quizzes
 
   enum quiz_type: {
-         poll: 0,
-         choice: 1,
-         worm: 2,
-       }
+    poll: 0,
+    choice: 1,
+    worm: 2
+  }
 end

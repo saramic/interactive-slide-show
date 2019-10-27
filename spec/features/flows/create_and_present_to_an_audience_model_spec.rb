@@ -15,7 +15,7 @@ describe "Create and present to an audience", type: :model do
                                        quiz_type: :poll,
                                        quiz_options: [
                                          QuizOption.new(text: "A"),
-                                         QuizOption.new(text: "B"),
+                                         QuizOption.new(text: "B")
                                        ])
       @intro_quiz = @intro_slide.quizzes.first
 
@@ -24,7 +24,7 @@ describe "Create and present to an audience", type: :model do
                                           quiz_type: :worm,
                                           quiz_options: [
                                             QuizOption.new(text: "presenter A"),
-                                            QuizOption.new(text: "presenter B"),
+                                            QuizOption.new(text: "presenter B")
                                           ])
       @worm_quiz = @slideshow_worm.quizzes.first
 
@@ -59,7 +59,7 @@ describe "Create and present to an audience", type: :model do
                           build(:presentation, slideshow: @slideshow_worm),
                           build(:presentation, slideshow: @slideshow_intermission),
                           build(:presentation, slideshow: @slideshow_choice),
-                          build(:presentation, slideshow: @slideshow_finale),
+                          build(:presentation, slideshow: @slideshow_finale)
                         ]
       @presentation_1 = @viewing.presentations.first
       @presentation_worm = @viewing.presentations.second
@@ -78,8 +78,8 @@ describe "Create and present to an audience", type: :model do
 
     Then "the joined viewers are listed as the viewers for the viewing" do
       expect(@viewing.viewers.map(&:id)).to eq([
-        @viewer_1.id, @viewer_2.id, @viewer_3.id,
-      ])
+                                                 @viewer_1.id, @viewer_2.id, @viewer_3.id
+                                               ])
     end
 
     And "the viewing presentation is not set" do
@@ -121,7 +121,7 @@ describe "Create and present to an audience", type: :model do
     Then "the results are available for the quiz" do
       expect(@intro_presented_quiz.result).to eq(
         @presented_quiz_option_a => 2,
-        @presented_quiz_option_b => 1,
+        @presented_quiz_option_b => 1
       )
     end
 
@@ -136,8 +136,8 @@ describe "Create and present to an audience", type: :model do
 
     When "the second presentation is cycled through and viewers vote on the worm" do
       minute = 0
-      while (@viewing.presentation == @presentation_worm &&
-             @viewing.presentation.has_more_slides?)
+      while @viewing.presentation == @presentation_worm &&
+            @viewing.presentation.has_more_slides?
         @viewing.next!
         @slides << @viewing.presentation.slide
 
@@ -148,7 +148,7 @@ describe "Create and present to an audience", type: :model do
         options = current_presented_quiz.presented_quiz_options
         @worm_option_1 = options.first
         @worm_option_2 = options.last
-        Timecop.freeze(Time.parse(sprintf("2019-10-30 08:%02d:00", minute))) do
+        Timecop.freeze(Time.parse(format("2019-10-30 08:%02d:00", minute))) do
           current_presented_quiz.votes << Vote.new(viewer: @viewer_1, presented_quiz_option: @worm_option_1)
           current_presented_quiz.votes << Vote.new(viewer: @viewer_1, presented_quiz_option: @worm_option_2)
           current_presented_quiz.votes << Vote.new(viewer: @viewer_1, presented_quiz_option: @worm_option_1)
@@ -159,20 +159,20 @@ describe "Create and present to an audience", type: :model do
 
     Then "each slide is played in order" do
       expect(@slides).to eq([
-        @slideshow_intro.slides.first,
-        @slideshow_worm.slides.first,
-        @slideshow_worm.slides[1],
-        @slideshow_worm.slides[2],
-        @slideshow_worm.slides.last,
-      ])
+                              @slideshow_intro.slides.first,
+                              @slideshow_worm.slides.first,
+                              @slideshow_worm.slides[1],
+                              @slideshow_worm.slides[2],
+                              @slideshow_worm.slides.last
+                            ])
       expect(
         @viewing.presentation.presented_slides.map(&:slide)
       ).to eq([
-        @slideshow_worm.slides.first,
-        @slideshow_worm.slides[1],
-        @slideshow_worm.slides[2],
-        @slideshow_worm.slides.last,
-      ])
+                @slideshow_worm.slides.first,
+                @slideshow_worm.slides[1],
+                @slideshow_worm.slides[2],
+                @slideshow_worm.slides.last
+              ])
     end
 
     And "a worm result is visible" do
@@ -180,24 +180,24 @@ describe "Create and present to an audience", type: :model do
       expect(@worm_presented_quiz.result).to eq(
         Time.parse("2019-10-30 08:00:00") => {
           @worm_option_1 => 2,
-          @worm_option_2 => 1,
+          @worm_option_2 => 1
         },
         Time.parse("2019-10-30 08:01:00") => {
           @worm_option_1 => 2,
-          @worm_option_2 => 1,
+          @worm_option_2 => 1
         },
         Time.parse("2019-10-30 08:02:00") => {
           @worm_option_1 => 2,
-          @worm_option_2 => 1,
-        },
+          @worm_option_2 => 1
+        }
       )
     end
 
     When "the intermission is played" do
       @viewing.next!
       @slides << @viewing.presentation.slide
-      while (@viewing.presentation == @presentation_3 &&
-             @viewing.presentation.has_more_slides?)
+      while @viewing.presentation == @presentation_3 &&
+            @viewing.presentation.has_more_slides?
         @viewing.next!
         @slides << @viewing.presentation.slide
       end
@@ -212,8 +212,8 @@ describe "Create and present to an audience", type: :model do
     When "the choice presentation is played" do
       @viewing.next!
       @slides << @viewing.presentation.slide
-      while (@viewing.presentation == @presentation_choice &&
-             @viewing.presentation.has_more_slides?)
+      while @viewing.presentation == @presentation_choice &&
+            @viewing.presentation.has_more_slides?
         @viewing.next!
         @slides << @viewing.presentation.slide
 
@@ -221,7 +221,7 @@ describe "Create and present to an audience", type: :model do
         options = current_presented_quiz.presented_quiz_options
         @choice_option_1 = options.first
         @choice_option_2 = options.last
-        # TODO do something clever with the votes
+        # TODO: do something clever with the votes
         current_presented_quiz.votes << Vote.new(viewer: @viewer_1, presented_quiz_option: @choice_option_1)
         current_presented_quiz.votes << Vote.new(viewer: @viewer_1, presented_quiz_option: @choice_option_1)
         current_presented_quiz.votes << Vote.new(viewer: @viewer_1, presented_quiz_option: @choice_option_1)
@@ -229,7 +229,7 @@ describe "Create and present to an audience", type: :model do
     end
 
     When "the remaining presentations are cycled through" do
-      while (@viewing.has_more_presentations?)
+      while @viewing.has_more_presentations?
         @viewing.next!
         @slides << @viewing.presentation.slide
       end
@@ -237,18 +237,18 @@ describe "Create and present to an audience", type: :model do
 
     Then "each slide is played in order" do
       expect(@slides).to eq([
-        @slideshow_intro.slides.first,
-        @slideshow_worm.slides.first,
-        @slideshow_worm.slides[1],
-        @slideshow_worm.slides[2],
-        @slideshow_worm.slides.last,
-        @slideshow_intermission.slides.first,
-        @slideshow_choice.slides.first,
-        @slideshow_choice.slides[1],
-        @slideshow_choice.slides[2],
-        @slideshow_choice.slides.last,
-        @slideshow_finale.slides.first,
-      ])
+                              @slideshow_intro.slides.first,
+                              @slideshow_worm.slides.first,
+                              @slideshow_worm.slides[1],
+                              @slideshow_worm.slides[2],
+                              @slideshow_worm.slides.last,
+                              @slideshow_intermission.slides.first,
+                              @slideshow_choice.slides.first,
+                              @slideshow_choice.slides[1],
+                              @slideshow_choice.slides[2],
+                              @slideshow_choice.slides.last,
+                              @slideshow_finale.slides.first
+                            ])
     end
   end
 end

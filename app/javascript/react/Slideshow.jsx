@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "@reach/router";
 import { Query } from "react-apollo";
 import { gql } from "apollo-boost";
+import { string } from "prop-types";
 import Slide from "./Slide";
 import NextSlide from "./NextSlide";
 
@@ -19,9 +20,7 @@ const GET_SLIDESHOW = gql`
   }
 `;
 
-function Slideshow(props) {
-  const { slideshowId, slideId } = props;
-
+export default function Slideshow({ slideshowId, slideId }) {
   return (
     <Query query={GET_SLIDESHOW} variables={{ id: slideshowId }}>
       {({ loading, error, data }) => {
@@ -57,4 +56,12 @@ function Slideshow(props) {
   );
 }
 
-export default Slideshow;
+Slideshow.propTypes = {
+  slideshowId: string,
+  slideId: string
+};
+
+Slideshow.defaultProps = {
+  slideshowId: undefined,
+  slideId: undefined
+};

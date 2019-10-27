@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     resources :slides, only: :show
   end
 
+  resources :viewings, only: :show
+
   namespace :admin do
     resources :slideshows
     resources :slides

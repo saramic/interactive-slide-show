@@ -2,6 +2,7 @@ class Viewing < ApplicationRecord
   belongs_to :presenter, class_name: :User, foreign_key: "user_id"
   has_many :presentations
   has_many :viewers
+  has_many :users, through: :viewers, source: :viewer
   belongs_to :presentation, optional: true
 
   def next!
@@ -20,7 +21,7 @@ class Viewing < ApplicationRecord
         quiz: quiz,
         presented_quiz_options: quiz.quiz_options.map do |quiz_option|
           PresentedQuizOption.new(text: quiz_option.text)
-        end,
+        end
       )
     end
     presentation.next!
