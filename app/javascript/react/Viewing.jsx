@@ -2,6 +2,7 @@ import React from "react";
 import { Mutation, useQuery } from "react-apollo";
 import { gql } from "apollo-boost";
 import { string } from "prop-types";
+import { Col, Row } from "reactstrap";
 
 const GET_VIEWING = gql`
   query viewing($id: ID!) {
@@ -75,30 +76,38 @@ const Quiz = ({ quiz }) => {
     <Mutation mutation={VOTE_ON_QUIZ}>
       {(voteOnQuiz, { loading, error }) => (
         <>
-          {quiz.title}
-          {quiz.presentedQuizOptions.map(presentedQuizOption => (
-            <button
-              type="button"
-              key={presentedQuizOption.id}
-              onClick={event =>
-                onVoteClick({
-                  voteOnQuiz,
-                  presentedQuizId: quiz.id,
-                  presentedQuizOptionId: presentedQuizOption.id,
-                  event
-                })}
-            >
-              {presentedQuizOption.text}
-            </button>
-          ))}
-          {quiz.result.map(resultValue => (
-            <div key={resultValue.id}>
-              {resultValue.count}
-              {resultValue.presentedQuizOption.text}
-            </div>
-          ))}
-          {loading && <p>Loading...</p>}
-          {error && <p>Error :( Please try again</p>}
+          <Row>
+            <Col>
+              {quiz.title}
+              {quiz.presentedQuizOptions.map(presentedQuizOption => (
+                <button
+                  type="button"
+                  className="btn btn-primary btn-lg btn-block"
+                  key={presentedQuizOption.id}
+                  onClick={event =>
+                    onVoteClick({
+                      voteOnQuiz,
+                      presentedQuizId: quiz.id,
+                      presentedQuizOptionId: presentedQuizOption.id,
+                      event
+                    })}
+                >
+                  {presentedQuizOption.text}
+                </button>
+              ))}
+            </Col>
+          </Row>
+          <hr />
+          <Row>
+            {quiz.result.map(resultValue => (
+              <Col key={resultValue.id}>
+                <p className="h3">{resultValue.count}</p>
+                <p className="h3">{resultValue.presentedQuizOption.text}</p>
+              </Col>
+            ))}
+            {loading && <p>Loading...</p>}
+            {error && <p>Error :( Please try again</p>}
+          </Row>
         </>
       )}
     </Mutation>
@@ -115,20 +124,26 @@ export default function Viewing({ viewingId }) {
   if (error) return "error...";
 
   return (
-    <>
-      <dl>
-        <dt>viewers:</dt>
-        <dd>{data.viewing.users.length}</dd>
-      </dl>
-      {data.viewing.users.map(viewer => (
-        <div key={viewer.id}>{viewer.email}</div>
-      ))}
-      {data.viewing.presentation.slide.title}
-      {data.viewing.presentation.slide.content}
-      {data.viewing.presentation.presentedQuizzes.map(presentedQuiz => (
-        <Quiz key={presentedQuiz.id} quiz={presentedQuiz} />
-      ))}
-    </>
+    <div className="container container-fluid">
+      <Row>
+        <Col className="d-sm-none d-md-none d-md-block">
+          <dl>
+            <dt>viewers:</dt>
+            <dd>{data.viewing.users.length}</dd>
+          </dl>
+          {data.viewing.users.map(viewer => (
+            <div key={viewer.id}>{viewer.email}</div>
+          ))}
+        </Col>
+        <Col>
+          <h3>{data.viewing.presentation.slide.title}</h3>
+          <p>{data.viewing.presentation.slide.content}</p>
+          {data.viewing.presentation.presentedQuizzes.map(presentedQuiz => (
+            <Quiz key={presentedQuiz.id} quiz={presentedQuiz} />
+          ))}
+        </Col>
+      </Row>
+    </div>
   );
 }
 

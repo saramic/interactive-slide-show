@@ -10,18 +10,29 @@
   </head>
 
   <body>
-    <% if signed_in? %>
-      Signed in as: <%= current_user.email %>
-      <%= button_to 'Sign out', sign_out_path, method: :delete %>
-      <%= link_to 'home', root_path %>
-    <% else %>
-      <%
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+        <% if signed_in? %>
+          <li class="nav-item">
+          <span class='nav-link'>Signed in as: <%= current_user.email %></span>
+          </li>
+          <li class="nav-item">
+          <%= link_to 'Sign out', sign_out_path, method: :delete, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+          <%= link_to 'home', root_path, class: 'nav-link' %>
+          </li>
+        <% else %>
+          <%
 =begin%>
- <%= link_to 'Sign in', sign_in_path %> 
-<%
+    <%= link_to 'Sign in', sign_in_path %> 
+    <%
 =end%>
-    <% end %>
-
+        <% end %>
+        </ul>
+        </div>
+    </nav>
     <div id="flash">
       <% flash.each do |key, value| %>
         <div class="flash <%= key %>"><%= value %></div>
