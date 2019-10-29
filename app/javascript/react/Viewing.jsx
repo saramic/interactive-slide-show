@@ -36,6 +36,13 @@ const GET_VIEWING = gql`
             id
             text
           }
+          result {
+            count
+            presentedQuizOption {
+              id
+              text
+            }
+          }
         }
       }
     }
@@ -84,6 +91,12 @@ const Quiz = ({ quiz }) => {
               {presentedQuizOption.text}
             </button>
           ))}
+          {quiz.result.map(resultValue => (
+            <div key={resultValue.id}>
+              {resultValue.count}
+              {resultValue.presentedQuizOption.text}
+            </div>
+          ))}
           {loading && <p>Loading...</p>}
           {error && <p>Error :( Please try again</p>}
         </>
@@ -95,7 +108,7 @@ const Quiz = ({ quiz }) => {
 export default function Viewing({ viewingId }) {
   const { data, loading, error } = useQuery(GET_VIEWING, {
     variables: { id: viewingId },
-    pollInterval: 10000
+    pollInterval: 1000
   });
 
   if (loading) return "loading...";

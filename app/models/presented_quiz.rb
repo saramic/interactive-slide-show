@@ -28,10 +28,16 @@ class PresentedQuiz < ApplicationRecord
   def result_cumulative
     # TODO: why does a join group sum not work?
     # votes.joins(:quiz_option).group(quiz_option: :text).sum
-    votes
-      .each_with_object(Hash.new(0)) do |vote, acc|
-      acc[vote.presented_quiz_option] += 1
+    results = votes
+      .each_with_object({}) do |vote, acc|
+      acc[vote.presented_quiz_option.id] ||= {
+        id: vote.presented_quiz_option.id,
+        count: 0,
+        presented_quiz_option: vote.presented_quiz_option,
+      }
+      acc[vote.presented_quiz_option.id][:count] += 1
     end
+    results.values
   end
 
   def result_over_time
