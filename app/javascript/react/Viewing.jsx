@@ -126,6 +126,13 @@ export default function Viewing({ viewingId }) {
   return (
     <div className="container container-fluid">
       <Row>
+        <Col>
+          <h3>{data.viewing.presentation.slide.title}</h3>
+          <p>{data.viewing.presentation.slide.content}</p>
+          {data.viewing.presentation.presentedQuizzes.map(presentedQuiz => (
+            <Quiz key={presentedQuiz.id} quiz={presentedQuiz} />
+          ))}
+        </Col>
         <Col className="d-sm-none d-md-none d-md-block">
           <dl>
             <dt>viewers:</dt>
@@ -133,13 +140,6 @@ export default function Viewing({ viewingId }) {
           </dl>
           {data.viewing.users.map(viewer => (
             <div key={viewer.id}>{viewer.email}</div>
-          ))}
-        </Col>
-        <Col>
-          <h3>{data.viewing.presentation.slide.title}</h3>
-          <p>{data.viewing.presentation.slide.content}</p>
-          {data.viewing.presentation.presentedQuizzes.map(presentedQuiz => (
-            <Quiz key={presentedQuiz.id} quiz={presentedQuiz} />
           ))}
         </Col>
       </Row>
