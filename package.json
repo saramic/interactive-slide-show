@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "@babel/preset-react": "^7.0.0",
+    "@fortawesome/fontawesome-free": "^5.11.2",
     "@rails/actioncable": "^6.0.0-alpha",
     "@rails/activestorage": "^6.0.0-alpha",
     "@rails/ujs": "^6.0.0-alpha",
@@ -14,11 +15,14 @@
     "apollo-link-context": "^1.0.19",
     "apollo-link-http": "^1.5.16",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "bootstrap": "^4.3.1",
     "graphql": "^14.5.8",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-apollo": "^3.1.1",
     "react-dom": "^16.9.0",
+    "reactstrap": "^8.1.1",
+    "styled-components": "^4.4.0",
     "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",
